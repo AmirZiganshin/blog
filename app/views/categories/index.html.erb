@@ -1,0 +1,12 @@
+<h1 align="center">Категории</h1>
+<br>
+<% if model1_signed_in? && (current_model1.admin? || current_model1.moderator?)%>
+    <%= link_to "Добавить категорию", newcat_path, class: "btn btn-primary" %>
+    <br><br>
+<% end %>
+<% @i=1 %>
+<% @categories.each do |cat| %>
+    <h5><%= link_to "Категория №"+@i.to_s+" "+cat.name, category_path(cat)%> <% @i+=1 %> </h5>
+    <br>
+<% end %>
+<br>

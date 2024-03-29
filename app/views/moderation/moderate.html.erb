@@ -1,0 +1,18 @@
+<h1 align="center">Модерация</h1>
+<br>
+<% @i=1 %>
+</h4>
+<br><br>
+<% @post.each do |post| %>
+    <h5><%= link_to "Статья №"+@i.to_s+" "+post.title.to_s, moderation_path(post)%> <% @i=@i+1 %> </h5>
+    <% if post.model1 %>
+    <h6>Автор: <%= link_to post.model1.email, user_posts_path( post.model1 ) if post.model1%></h6>
+    <% end %>
+    <h6>Категория: <%= link_to post.category.name, category_path(post.category)%></h6>
+    <%= post.body %> 
+    <br>
+    <h7>Дата написания: <%= post.created_at.strftime('%d-%m-%Y')%></h7>
+    <br><br><br>
+<% end %>
+<br>
+<%= will_paginate @post %>

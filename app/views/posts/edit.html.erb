@@ -1,0 +1,26 @@
+<h2 align="center">Редактирование поста</h2>
+<br><br>
+<%= form_for :post, url: post_path(@post), method: :patch do |f| %>
+    <% if @post.errors.any? %>
+        <% @post.errors.full_messages.each do |msg| %>
+            <div class="alert alert-danger"> <%= msg %></div>
+        <% end %>
+    <% end %>
+    <p>
+        Название поста<br>
+        <%= f.text_field(:title, {:class => 'form-control'}) %>
+    </p>
+    <p>
+        Категория<br>
+        <%= f.select(:category_id, options_for_select(@categories.collect { |cat| [cat.name, cat.id]})) %>
+    </p>
+    <p>
+    <p>
+        Текст поста<br>
+        <%= f.text_area(:body, {:class => 'form-control'}) %>
+    </p>
+    <p>
+        <%= f.submit "Редактировать пост", class: "btn btn-primary" %>
+    </p>
+    
+<% end %>

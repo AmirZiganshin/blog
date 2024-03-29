@@ -1,0 +1,32 @@
+<h1 align="center">Все пользователи</h1>
+<br>
+<h4 align="center"> <%= form_tag(search_users_path, method: :get) do %>
+  <%= text_field_tag :query, params[:query] %>
+  <%= submit_tag "Поиск" %>
+<% end %>
+</h4>
+<br><br>
+<% @i=1 %>
+<table class="table table-bordered">
+  <thead><th>Номер</th><th>Email</th><th>Роль</th><% if current_model1.admin? %><th>Изменить роль</th> <% end %> </thead>
+  <tbody>
+    <% @users.each do |user| %>
+        <tr>
+        <td><%= @i %></td>
+        <td><%= link_to user.email, user_posts_path( user ) %></td>
+        <td><%= user.role %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <% if current_model1.admin? %>
+        <td> <%= form_for(user, url: user_path(user), html: { method: :put }) do |f| %>
+            <% if user.admin? %>
+            <% else %>
+            <%= f.select :role, Model1.roles.keys.take(2) %>
+            <%= f.submit "Update Role" %>
+            <% end%>
+        <% end %>
+        <% end %>
+        </td>
+        </tr>
+        <% @i=@i+1 %>
+    <% end %>
+  </tbody>
+</table>

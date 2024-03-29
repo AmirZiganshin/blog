@@ -1,0 +1,29 @@
+<% @i=1 %>
+<% if @posts.present? %>
+  <% @posts.each do |post| %>
+    <% if post.model1==current_model1 || current_model1.admin? || current_model1.moderator? %>
+      <%if @i==1 %>
+      <h3 align="center">Все посты пользователя <%= post.model1.email %></h3>
+      <br><br>
+      <% end %>
+      <h4><%= link_to "Статья №"+@i.to_s+": "+post.title.to_s, post_path(post)%> <% @i=@i+1 %> </h4>
+      <h6>Текст: <%= post.body %> </h6>
+      <% if post.moderated==true %>
+        <h6 style="color: green">Moderated: <%= post.moderated %> </h6>
+      <% elsif post.moderated==false %>
+        <h6 style="color: red">Moderated: <%= post.moderated %> </h6>
+      <% end %>
+      <br>
+  <% elsif post.moderated==true %>
+    <%if @i==1 %>
+    <h3 align="center">Все посты пользователя <%= post.model1.email %></h3>
+    <br><br>
+    <% end %>
+      <h4><%= link_to "Статья №"+@i.to_s+": "+post.title.to_s, post_path(post)%> <% @i=@i+1 %> </h4>
+      <h6>Текст: <%= post.body %> </h6>
+    <br>
+  <% end %>
+<% end %>
+<% else %>
+    <h3 align="center"> У вас еще нет ни одного поста<h3>
+<% end %>

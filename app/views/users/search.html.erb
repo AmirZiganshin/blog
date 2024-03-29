@@ -1,0 +1,22 @@
+<h1 align="center">Результат поиска:</h1>
+<br>
+<h4 align="center"> <%= form_tag(search_users_path, method: :get) do %>
+  <%= text_field_tag :query, params[:query] %>
+  <%= submit_tag "Поиск" %>
+<% end %>
+</h4>
+<br><br>
+<% @i=1 %>
+<table class="table table-bordered">
+  <thead><th>Номер</th><th>Email</th><th>Роль</th></thead>
+  <tbody>
+    <% @users.each do |user| %>
+        <tr>
+        <td><%= @i %></td>
+        <td><%= link_to user.email, user_posts_path( user ) %></td>
+        <td><%= user.role %></td>
+        </tr>
+        <% @i=@i+1 %>
+    <% end %>
+  </tbody>
+</table>

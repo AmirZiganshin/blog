@@ -1,0 +1,49 @@
+<h2> Ваш профиль:</h2>
+<p>Ваша почта: <%= current_model1.email %><br>
+Ваша роль: <%= current_model1.role %> <br>
+<% if current_model1.chatid.present? %>
+  Ваш ID чата telegram: <%= current_model1.chatid %> 
+  <%= button_to 'Сбросить Chat ID', resetchatid_path(current_model1), method: :patch, data: { confirm: 'Вы уверены?' } %>
+<% end %></p>
+<h2>Edit profile</h2>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+  <%= render "devise/shared/error_messages", resource: resource %>
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+  </div>
+
+  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
+    <%= f.password_field :password, autocomplete: "new-password" %>
+    <% if @minimum_password_length %>
+      <br />
+      <em><%= @minimum_password_length %> characters minimum</em>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password_confirmation %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
+    <%= f.password_field :current_password, autocomplete: "current-password" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Update" %>
+  </div>
+<% end %>
+
+<h3>Cancel my account</h3>
+
+<div>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Вы уверены? Все ваши посты и комментарии удалятся", turbo_confirm: "Are you sure?" }, method: :delete %></div>
+
+<%= link_to "Back", :back%>
